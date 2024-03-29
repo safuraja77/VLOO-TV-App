@@ -1,0 +1,77 @@
+name: vloo_tv_v2
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=3.3.1 <4.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.6
+  get: 4.6.6
+  flutter: 
+    sdk: flutter
+
+  #SVG
+  flutter_svg: ^2.0.7
+
+  #dio for API call
+  dio: ^5.3.2
+
+  #shared preferences
+  get_storage: ^2.1.1
+
+  http: ^0.13.3
+  video_player: ^2.4.0
+  path_provider: ^2.0.2
+  gallery_saver: ^2.3.2
+  better_player: ^0.0.83
+  file: ^6.1.4
+
+  #animations:
+  widget_and_text_animator: ^1.1.5
+  glitcheffect: ^1.1.1
+  text_neon_widget: ^1.0.6
+  fade_out_particle: ^1.2.1
+  cutout_text_effect: ^0.0.1
+  animated_flutter_widgets: ^0.0.2
+  animated_text_kit: ^4.2.2
+  animation_wrappers: ^3.0.0
+  animate_do: ^3.1.2
+  neon_widgets: ^2.0.0
+  cached_network_image: ^3.3.0
+
+  flutter_box_transform: ^0.4.2
+
+dev_dependencies: 
+  flutter_lints: 3.0.1
+  flutter_test: 
+    sdk: flutter
+
+flutter: 
+  uses-material-design: true
+  assets:
+    - assets/icons/
+    - assets/images/
+  fonts:
+    - family: FlutterCustomIcons
+      fonts:
+          - asset: assets/fonts/FlutterCustomIcons.ttf
+
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/FlutterCustomIcons.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Poppins-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Poppins-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Poppins-Thin.ttf
+          weight: 100
+
