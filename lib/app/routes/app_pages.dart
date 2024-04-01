@@ -2,8 +2,6 @@ import 'package:get/get.dart';
 
 import '../modules/attach_media_screen_mobile/bindings/attach_media_screen_mobile_binding.dart';
 import '../modules/attach_media_screen_mobile/views/attach_media_screen_mobile_view.dart';
-import '../modules/download_media/bindings/download_media_binding.dart';
-import '../modules/download_media/views/download_media_view.dart';
 import '../modules/name_screen_mobile/bindings/name_screen_mobile_binding.dart';
 import '../modules/name_screen_mobile/views/name_screen_mobile_view.dart';
 import '../modules/scan_code_screen/bindings/scan_code_screen_binding.dart';
@@ -45,11 +43,6 @@ class AppPages {
       name: _Paths.attachMediaScreenMobile,
       page: () => const AttachMediaScreenMobileView(),
       binding: AttachMediaScreenMobileBinding(),
-    ),
-    GetPage(
-      name: _Paths.downloadMedia,
-      page: () => const DownloadMediaView(),
-      binding: DownloadMediaBinding(),
     ),
   ];
 }

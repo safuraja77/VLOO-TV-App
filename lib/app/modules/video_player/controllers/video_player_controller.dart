@@ -1,10 +1,15 @@
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
-class MediaPlayerController extends GetxController {
+class VideoPlayerControler extends GetxController {
   int currentVideoIndex = 0;
-  List<String>? videos = [];
-  MediaPlayerController({this.videos});
+  List<String> videos = [
+    'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+    'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
+    'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+    'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
+  ];
+  VideoPlayerControler({required this.videos});
   VideoPlayerController? videoController;
 
   @override
@@ -18,7 +23,7 @@ class MediaPlayerController extends GetxController {
     print("Current index  is $currentVideoIndex");
 
     videoController =
-        VideoPlayerController.networkUrl(Uri.parse(videos![currentVideoIndex]));
+        VideoPlayerController.networkUrl(Uri.parse(videos[currentVideoIndex]));
 
     videoController!.initialize().then((_) {
       videoController!.play();
@@ -34,14 +39,14 @@ class MediaPlayerController extends GetxController {
 
   void onNext() async {
     print(
-        'Current index: =====> $currentVideoIndex, Videos length: ====> ${videos!.length}');
+        'Current index: =====> $currentVideoIndex, Videos length: ====> ${videos.length}');
 
-    currentVideoIndex = (currentVideoIndex + 1) % videos!.length;
+    currentVideoIndex = (currentVideoIndex + 1) % videos.length;
     print('Current index is =====> $currentVideoIndex');
     videoController!.dispose();
 
     videoController =
-        VideoPlayerController.networkUrl(Uri.parse(videos![currentVideoIndex]));
+        VideoPlayerController.networkUrl(Uri.parse(videos[currentVideoIndex]));
 
     await videoController!.initialize();
 

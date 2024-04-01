@@ -8,8 +8,8 @@ abstract class Routes {
       _Paths.selectOrientationScreenMobile;
   static const nameScreenMobile = _Paths.nameScreenMobile;
   static const attachMediaScreenMobile = _Paths.attachMediaScreenMobile;
-  static const mediaPlayer = _Paths.mediaPlayer;
   static const downloadMedia = _Paths.downloadMedia;
+  static const VIDEO_PLAYER = _Paths.VIDEO_PLAYER;
 }
 
 abstract class _Paths {
@@ -20,6 +20,6 @@ abstract class _Paths {
       '/select-orientation-screen-mobile';
   static const nameScreenMobile = '/name-screen-mobile';
   static const attachMediaScreenMobile = '/attach-media-screen-mobile';
-  static const mediaPlayer = '/media-player';
   static const downloadMedia = '/download-media';
+  static const VIDEO_PLAYER = '/video-player';
 }

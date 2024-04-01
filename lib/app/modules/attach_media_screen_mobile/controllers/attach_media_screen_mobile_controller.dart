@@ -7,8 +7,8 @@ import 'package:vloo_tv_v2/app/data/models/GetConnectionResponse.dart';
 import 'package:vloo_tv_v2/app/data/utils/SharedPreferences.dart';
 import 'package:vloo_tv_v2/app/data/utils/app_urls.dart';
 import 'package:vloo_tv_v2/app/data/utils/utils.dart';
+import 'package:vloo_tv_v2/app/modules/download_media/controllers/download_media_controller.dart';
 import 'package:vloo_tv_v2/app/modules/download_media/views/download_media_view.dart';
-import 'package:vloo_tv_v2/app/modules/media_player/controllers/media_player_controller.dart';
 import 'package:vloo_tv_v2/app/routes/app_pages.dart';
 
 class AttachMediaScreenMobileController extends GetxController {
@@ -82,7 +82,7 @@ class AttachMediaScreenMobileController extends GetxController {
                 }),
               );
             } else {
-              Get.put<MediaPlayerController>(MediaPlayerController());
+              Get.put<DownloadMediaController>(DownloadMediaController());
               Get.to(const DownloadMediaView(), arguments: model.pairingResult);
               timer.cancel();
             }

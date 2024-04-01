@@ -1,18 +1,19 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
-import 'package:vloo_tv_v2/app/modules/media_player/controllers/media_player_controller.dart';
+import 'package:vloo_tv_v2/app/modules/video_player/controllers/video_player_controller.dart';
 
-class MediaPlayerView extends GetView<MediaPlayerController> {
+class VideoPlayerView extends GetView<VideoPlayerControler> {
   final List<String> urls;
-  const MediaPlayerView({
+  const VideoPlayerView({
     super.key,
     required this.urls,
   });
 
   @override
   Widget build(BuildContext context) {
-    Get.put(MediaPlayerController(videos: urls));
+    final controller = Get.put(VideoPlayerControler(videos: urls));
     return Scaffold(
       body: OrientationBuilder(
         builder: (context, orientation) {
@@ -20,7 +21,7 @@ class MediaPlayerView extends GetView<MediaPlayerController> {
             width: Get.width,
             height: Get.height,
             color: Colors.black,
-            child: GetBuilder<MediaPlayerController>(
+            child: GetBuilder<VideoPlayerControler>(
               builder: (controller) {
                 if (controller.videoController != null ||
                     controller.videoController!.value.isInitialized) {
