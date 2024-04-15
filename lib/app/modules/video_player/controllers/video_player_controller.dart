@@ -3,12 +3,7 @@ import 'package:video_player/video_player.dart';
 
 class VideoPlayerControler extends GetxController {
   int currentVideoIndex = 0;
-  List<String> videos = [
-    'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
-    'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
-    'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
-    'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
-  ];
+  List<String> videos = [];
   VideoPlayerControler({required this.videos});
   VideoPlayerController? videoController;
 
@@ -18,6 +13,13 @@ class VideoPlayerControler extends GetxController {
     print("Initializing video controller bla bla bla");
     initializeVideoController();
   }
+
+  // @override
+  // void onReady() {
+  //   print("Initializing video controller bla bla bla");
+  //   initializeVideoController();
+  //   super.onReady();
+  // }
 
   void initializeVideoController() {
     print("Current index  is $currentVideoIndex");
