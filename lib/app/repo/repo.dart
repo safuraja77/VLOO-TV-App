@@ -8,10 +8,10 @@ import 'package:vloo_tv_v2/app/data/models/common/common_response.dart';
 import 'package:vloo_tv_v2/app/data/utils/strings.dart';
 
 class RestAPI {
-  final GetConnect connect = Get.find<GetConnect>();
+  static final GetConnect connect = Get.find<GetConnect>();
 
   //GET request example
-  Future<dynamic> getDataMethod(String url, Map<String, String> header,
+  static Future<dynamic> getDataMethod(String url, Map<String, String> header,
       Map<String, dynamic>? query) async {
     Response response = await connect.get(
       url,
