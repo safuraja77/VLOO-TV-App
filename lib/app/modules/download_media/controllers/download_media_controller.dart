@@ -2,33 +2,20 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:vloo_tv_v2/app/data/configs/api_config.dart';
-import 'package:vloo_tv_v2/app/data/models/MediaModel.dart';
-import 'package:vloo_tv_v2/app/data/models/PairingResult.dart';
-import 'package:vloo_tv_v2/app/data/models/media_temp.dart';
+import 'package:vloo_tv_v2/app/data/models/pairing_result.dart';
 import 'dart:developer';
 
 class DownloadMediaController extends GetxController {
-  // Rx<PairingResult> pairingResult = PairingResult().obs;
   PairingResult? pairingResult;
-  MediaTempModel? mediaTempModel;
-  Rx<MediaModel> media = MediaModel().obs;
-  late Timer timer;
   List<String> urls = <String>[];
 
-  // get method for 1st api.
-  // get method for 2nd api.
-  // pass screen id from 1st api to 2nd api query params.
-  // fetch media according to id provided. if screen id no is 800 then respective media will be shown.
+  // get method for 1st api. (done)
+  // get method for 2nd api. (done)
+  // pass screen id from 1st api to 2nd api query params. (TODO)
+  // fetch media according to id provided. if screen id no is 800 then respective media will be shown. (TODO)
   // download and play media in a loop  if it is video.
   // if it is template, sho template but work with video for now. skip template.
   // use stream to get videos on runtime.
-
-  @override
-  onInit() {
-    screenContents();
-    getScreenContents(pairingResult!.id!);
-    super.onInit();
-  }
 
   Future<PairingResult?> screenContents() async {
     const String apiUrl = ApiConfig.screenContent;
@@ -46,7 +33,6 @@ class DownloadMediaController extends GetxController {
         headers: headers,
       ),
     );
-    log(response.statusCode.toString());
 
     if (response.statusCode == 200) {
       final jsonData = response.data;
@@ -59,37 +45,36 @@ class DownloadMediaController extends GetxController {
     }
   }
 
-  Future<MediaTempModel?> getScreenContents(num id) async {
-    const String apiUrl = ApiConfig.getScreenContent;
-    const String token = '637|belJRxNS41iJKNePY9MMCJuLzBNljqZ8nooiAiw2';
+  // Future<MediaTempModel?> getScreenContents(num id) async {
+  //   const String apiUrl = ApiConfig.getScreenContent;
+  //   const String token = '637|belJRxNS41iJKNePY9MMCJuLzBNljqZ8nooiAiw2';
 
-    final Map<String, String> headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    };
-    var dio = Dio();
-    var response = await dio.request(
-      apiUrl,
-      queryParameters: {
-        'screen_id': id,
-      },
-      options: Options(
-        method: 'GET',
-        headers: headers,
-      ),
-    );
+  //   final Map<String, String> headers = {
+  //     'Content-Type': 'application/json',
+  //     'Authorization': 'Bearer $token',
+  //   };
+  //   var dio = Dio();
+  //   var response = await dio.request(
+  //     apiUrl,
+  //     queryParameters: {
+  //       'screen_id': id,
+  //     },
+  //     options: Options(
+  //       method: 'GET',
+  //       headers: headers,
+  //     ),
+  //   );
 
-    log('Id is $id');
-    if (response.statusCode == 200) {
-      final jsonData = response.data;
-      final result = jsonData['result'];
-      mediaTempModel = MediaTempModel.fromMap(result);
-      return mediaTempModel;
-    } else {
-      log('Error,==============> Failed to load data');
-      throw Exception('Failed to load data');
-    }
-  }
+  //   if (response.statusCode == 200) {
+  //     final jsonData = response.data;
+  //     final result = jsonData['result'];
+  //     mediaTempModel = MediaTempModel.fromMap(result);
+  //     return mediaTempModel;
+  //   } else {
+  //     log('Error,==============> Failed to load data');
+  //     throw Exception('Failed to load data');
+  //   }
+  // }
 
   // Future<void> downloadAndPlayVideo({required MediaModel media}) async {
   //   try {
@@ -206,25 +191,29 @@ class DownloadMediaController extends GetxController {
   //   super.onClose();
   // }
 
-  // @override
-  // void onReady() async {
-  //   if (Get.arguments != null) {
-  //     pairingResult.value = Get.arguments as PairingResult;
-  //     log('Title is ${pairingResult.value.title}');
-  //     log('ID  ${pairingResult.value.id}');
+  @override
+  void onReady() async {
+    if (Get.arguments != null) {
+      pairingResult = Get.arguments as PairingResult;
+      log('Title is ${pairingResult!.title}');
+      log('ID  ${pairingResult!.id}');
+      log('Orientation is  ${pairingResult!.orientation}');
+      screenContents();
 
-  //     if (pairingResult.value.uploadMedias != null) {
-  //       for (var element in pairingResult.value.uploadMedias!) {
-  //         await readFileFromPath(media: element);
-  //       }
+      if (pairingResult!.uploadMedias != null) {
+        // for (var element in pairingResult!.uploadMedias!) {
+        //   await readFileFromPath(media: element);
+        // }
 
-  //       SharedPreferences.savePairingResultObject(pairingResult.value);
-  //       Get.put<VideoPlayerControler>(VideoPlayerControler(videos: urls));
-  //       await Get.to(
-  //         () => VideoPlayerView(urls: urls),
-  //       );
-  //     }
-  //   }
-  //   super.onReady();
-  // }
+        // SharedPreferences.savePairingResultObject(pairingResult!);
+        // Get.put<VideoPlayerControler>(
+        //   VideoPlayerControler(videos: urls),
+        // );
+        // await Get.to(
+        //   () => VideoPlayerView(urls: urls),
+        // );
+      }
+    }
+    super.onReady();
+  }
 }

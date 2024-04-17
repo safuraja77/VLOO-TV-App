@@ -115,8 +115,9 @@ class ScanCodeScreenController extends GetxController {
                 }
               } else {
                 Get.put<DownloadMediaController>(DownloadMediaController());
-                Get.to(const DownloadMediaView(),
-                    arguments: model.pairingResult);
+                Get.to(
+                  const DownloadMediaView(),
+                );
                 timer.cancel();
               }
             }

@@ -1,4 +1,4 @@
-import 'PairingResult.dart';
+import 'pairing_result.dart';
 
 class GetConnectionPairingResponse {
   GetConnectionPairingResponse({

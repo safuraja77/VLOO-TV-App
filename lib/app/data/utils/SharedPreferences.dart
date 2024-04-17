@@ -1,5 +1,5 @@
 import 'package:get_storage/get_storage.dart';
-import 'package:vloo_tv_v2/app/data/models/PairingResult.dart';
+import 'package:vloo_tv_v2/app/data/models/pairing_result.dart';
 
 enum Role {
   owner,
