@@ -20,13 +20,42 @@ class DownloadMediaController extends GetxController {
   late Timer timer;
   List<String> urls = <String>[];
 
-  //get method for 1st api.
-  //get method for 2nd api.
-  //pass screen id from 1st api to 2nd api query params.
-  //fetch media according to id provided. if screen id no is 800 then respective media will be shown.
+  // get method for 1st api.
+  // get method for 2nd api.
+  // pass screen id from 1st api to 2nd api query params.
+  // fetch media according to id provided. if screen id no is 800 then respective media will be shown.
   // download and play media in a loop  if it is video.
   // if it is template, sho template but work with video for now. skip template.
   // use stream to get videos on runtime.
+
+  Future<List<PairingResult>> screenContents() async {
+    const String apiUrl = ApiConfig.screenContent;
+    const String token = '637|belJRxNS41iJKNePY9MMCJuLzBNljqZ8nooiAiw2';
+
+    final Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+    var dio = Dio();
+    var response = await dio.request(
+      apiUrl,
+      options: Options(
+        method: 'GET',
+        headers: headers,
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      final jsonData = response.data;
+      final List<dynamic> result = jsonData['result'];
+      final List<PairingResult> mediaList =
+          result.map((data) => PairingResult.fromJson(data)).toList();
+      return mediaList;
+    } else {
+      log('Error,==============> Failed to load data');
+      throw Exception('Failed to load data');
+    }
+  }
 
   Future<List<MediaTempModel>> getScreenContents(num id) async {
     const String apiUrl = ApiConfig.getScreenContent;
