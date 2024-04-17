@@ -30,7 +30,8 @@ class DownloadMediaView extends GetView<DownloadMediaController> {
                   width: 200.w, height: 200.h),
               SizedBox(height: 20.h),
               Text(
-                Strings.pleaseWaitForStream,
+                // Strings.pleaseWaitForStream,
+                controller.pairingResult!.orientation!,
                 textAlign: TextAlign.center,
                 style: CustomTextStyle.font20R.copyWith(
                   color: AppColor.appLightBlue.withOpacity(0.8),

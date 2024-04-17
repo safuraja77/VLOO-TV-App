@@ -1,5 +1,5 @@
 class ApiConfig {
-  static const String baseUrl = "https://vloo.6lgx.com/api";
+  static const String baseUrl = "https://vloo.6lgx.com/api/";
 
   // Authentications
   static const String loginURL = "${baseUrl}login";
@@ -45,5 +45,5 @@ class ApiConfig {
   static const String updateScreenTitleURL = "${baseUrl}screen/edit-title";
   static const String deleteScreenURL = "${baseUrl}screen/delete";
   static const String getScreenContent = "${baseUrl}screen/get-screen-contents";
-  static const String screenContent = "${baseUrl}screen/screencontents";
+  static const String screenContent = "${baseUrl}screen/contents";
 }
