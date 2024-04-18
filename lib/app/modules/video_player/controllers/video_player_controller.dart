@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
@@ -10,7 +12,7 @@ class VideoPlayerControler extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    print("Initializing video controller bla bla bla");
+    log(num.parse("Initializing video controller bla bla bla"));
     initializeVideoController();
   }
 
@@ -22,7 +24,7 @@ class VideoPlayerControler extends GetxController {
   // }
 
   void initializeVideoController() {
-    print("Current index  is $currentVideoIndex");
+    log(num.parse("Current index  is $currentVideoIndex"));
 
     videoController =
         VideoPlayerController.networkUrl(Uri.parse(videos[currentVideoIndex]));
@@ -40,11 +42,11 @@ class VideoPlayerControler extends GetxController {
   }
 
   void onNext() async {
-    print(
-        'Current index: =====> $currentVideoIndex, Videos length: ====> ${videos.length}');
+    log(num.parse(
+        'Current index: =====> $currentVideoIndex, Videos length: ====> ${videos.length}'));
 
     currentVideoIndex = (currentVideoIndex + 1) % videos.length;
-    print('Current index is =====> $currentVideoIndex');
+    log(num.parse('Current index is =====> $currentVideoIndex'));
     videoController!.dispose();
 
     videoController =

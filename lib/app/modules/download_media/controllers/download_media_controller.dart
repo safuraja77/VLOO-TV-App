@@ -9,44 +9,14 @@ class DownloadMediaController extends GetxController {
   PairingResult? pairingResult;
   List<String> urls = <String>[];
 
-  // get method for 1st api. (done)
-  // get method for 2nd api. (done)
-  // pass screen id from 1st api to 2nd api query params. (TODO)
-  // fetch media according to id provided. if screen id no is 800 then respective media will be shown. (TODO)
+  // get method for api. (done)
+  // fetch media. (TODO)
   // download and play media in a loop  if it is video.
   // if it is template, sho template but work with video for now. skip template.
   // use stream to get videos on runtime.
 
-  Future<PairingResult?> screenContents() async {
-    const String apiUrl = ApiConfig.screenContent;
-    const String token = '637|belJRxNS41iJKNePY9MMCJuLzBNljqZ8nooiAiw2';
-
-    final Map<String, String> headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    };
-    var dio = Dio();
-    var response = await dio.request(
-      apiUrl,
-      options: Options(
-        method: 'GET',
-        headers: headers,
-      ),
-    );
-
-    if (response.statusCode == 200) {
-      final jsonData = response.data;
-      final result = jsonData['result'];
-      pairingResult = PairingResult.fromJson(result);
-      return pairingResult;
-    } else {
-      log('Error,==============> Failed to load data');
-      throw Exception('Failed to load data');
-    }
-  }
-
-  // Future<MediaTempModel?> getScreenContents(num id) async {
-  //   const String apiUrl = ApiConfig.getScreenContent;
+  // Future<PairingResult?> screenContents() async {
+  //   const String apiUrl = ApiConfig.screenContent;
   //   const String token = '637|belJRxNS41iJKNePY9MMCJuLzBNljqZ8nooiAiw2';
 
   //   final Map<String, String> headers = {
@@ -56,9 +26,6 @@ class DownloadMediaController extends GetxController {
   //   var dio = Dio();
   //   var response = await dio.request(
   //     apiUrl,
-  //     queryParameters: {
-  //       'screen_id': id,
-  //     },
   //     options: Options(
   //       method: 'GET',
   //       headers: headers,
@@ -68,8 +35,8 @@ class DownloadMediaController extends GetxController {
   //   if (response.statusCode == 200) {
   //     final jsonData = response.data;
   //     final result = jsonData['result'];
-  //     mediaTempModel = MediaTempModel.fromMap(result);
-  //     return mediaTempModel;
+  //     pairingResult = PairingResult.fromJson(result);
+  //     return pairingResult;
   //   } else {
   //     log('Error,==============> Failed to load data');
   //     throw Exception('Failed to load data');
@@ -89,11 +56,10 @@ class DownloadMediaController extends GetxController {
   //     var response = await http.get(Uri.parse(media.url!));
   //     await videoFile.writeAsBytes(response.bodyBytes);
 
-  //     pairingResult
-  //         .value
-  //         .uploadMedias?[pairingResult.value.uploadMedias!
-  //             .indexWhere((element) => element.id! == media.id)]
-  //         .localUrl = videoFilePath;
+  //     // pairingResult!
+  //     //     .uploadMedias?[pairingResult!.uploadMedias!
+  //     //         .indexWhere((element) => element.id! == media.id)]
+  //     //     .localUrl = videoFilePath;
   //     if (videoFile.existsSync()) {
   //       if (!Get.isRegistered<DownloadMediaController>()) {
   //         Get.put<DownloadMediaController>(DownloadMediaController());
@@ -109,9 +75,8 @@ class DownloadMediaController extends GetxController {
   //   String videoFilePath = '${appDocDir.path}/${media.id}.${media.format}';
   //   final File file = File(videoFilePath);
   //   urls.add(videoFilePath);
-  //   pairingResult
-  //       .value
-  //       .uploadMedias?[pairingResult.value.uploadMedias!
+  //   pairingResult!
+  //       .uploadMedias?[pairingResult!.uploadMedias!
   //           .indexWhere((element) => element.id! == media.id)]
   //       .localUrl = videoFilePath;
   //   if (file.existsSync()) {
@@ -198,7 +163,7 @@ class DownloadMediaController extends GetxController {
       log('Title is ${pairingResult!.title}');
       log('ID  ${pairingResult!.id}');
       log('Orientation is  ${pairingResult!.orientation}');
-      screenContents();
+      // screenContents();
 
       if (pairingResult!.uploadMedias != null) {
         // for (var element in pairingResult!.uploadMedias!) {

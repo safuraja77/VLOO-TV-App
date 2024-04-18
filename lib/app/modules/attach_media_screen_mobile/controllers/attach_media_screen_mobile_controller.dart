@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:async';
 import 'package:dio/dio.dart';
+import 'package:vloo_tv_v2/app/data/configs/api_config.dart';
 import 'package:vloo_tv_v2/app/data/models/GetConnectionPairingResponse.dart';
 import 'package:vloo_tv_v2/app/data/models/GetConnectionResponse.dart';
 import 'package:vloo_tv_v2/app/data/utils/SharedPreferences.dart';
@@ -50,16 +51,16 @@ class AttachMediaScreenMobileController extends GetxController {
   Future<void> getMediaConnectionPairing() async {
     var dio = Dio();
     var response = await dio.request(
-        "${AppUrls.mediaConnection}?code=${qrCode.value}",
+        // "${AppUrls.mediaConnection}?code=${qrCode.value}",
+        ApiConfig.screenContent,
         options: Options(method: 'GET'));
     try {
       GetConnectionPairingResponse model =
           GetConnectionPairingResponse.fromJson(response.data);
       if (model.status == true && model.message == 'Screen Details') {
-        if (model.pairingResult != null &&
-            model.pairingResult!.screenCode != "") {
+        if (model.result != null && model.result!.screenCode != "") {
           SharedPreferences.saveQrCode(qrCode.value);
-          if (model.pairingResult?.status != "Connected") {
+          if (model.result?.status != "Connected") {
             Get.offNamed(Routes.attachMediaScreenMobile);
             if (!isPopupShownOnce) {
               isPopupShownOnce = true;
@@ -83,7 +84,7 @@ class AttachMediaScreenMobileController extends GetxController {
               );
             } else {
               Get.put<DownloadMediaController>(DownloadMediaController());
-              Get.to(const DownloadMediaView(), arguments: model.pairingResult);
+              Get.to(const DownloadMediaView(), arguments: model.result);
               timer.cancel();
             }
           }

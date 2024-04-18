@@ -68,7 +68,7 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
 
 void navigateToQRScreen() {
   SharedPreferences.deleteQrCode();
-  if (!Get.isRegistered<DownloadMediaController>()) {
+  if (!Get.isRegistered<ScanCodeScreenController>()) {
     Get.put<ScanCodeScreenController>(ScanCodeScreenController());
   }
   Get.offNamed(Routes.scanCodeScreen);
@@ -84,24 +84,23 @@ Future<void> getMediaConnectionPairing() async {
     GetConnectionPairingResponse model =
         GetConnectionPairingResponse.fromJson(response.data);
     if (model.status == true && model.message == 'Screen Details') {
-      if (model.pairingResult != null &&
-          model.pairingResult!.screenCode != "") {
-        if (model.pairingResult!.orientation == "") {
+      if (model.result != null && model.result!.screenCode != "") {
+        if (model.result!.orientation == "") {
           Get.put<SelectOrientationScreenMobileController>(
               SelectOrientationScreenMobileController());
           Get.offNamed(Routes.selectOrientationScreenMobile);
         } else {
-          if (model.pairingResult!.title == "") {
+          if (model.result!.title == "") {
             Get.put<NameScreenMobileController>(NameScreenMobileController());
             Get.offNamed(Routes.nameScreenMobile);
           } else {
-            if (model.pairingResult?.status != "Connected") {
+            if (model.result?.status != "Connected") {
               Get.put<AttachMediaScreenMobileController>(
                   AttachMediaScreenMobileController());
               Get.offNamed(Routes.attachMediaScreenMobile);
             } else {
               Get.put<DownloadMediaController>(DownloadMediaController());
-              Get.to(const DownloadMediaView(), arguments: model.pairingResult);
+              Get.to(const DownloadMediaView(), arguments: model.result);
             }
           }
         }

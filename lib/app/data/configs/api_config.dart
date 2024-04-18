@@ -44,6 +44,5 @@ class ApiConfig {
       "${baseUrl}screen/change-orientation";
   static const String updateScreenTitleURL = "${baseUrl}screen/edit-title";
   static const String deleteScreenURL = "${baseUrl}screen/delete";
-  static const String getScreenContent = "${baseUrl}screen/get-screen-contents";
   static const String screenContent = "${baseUrl}screen/contents";
 }

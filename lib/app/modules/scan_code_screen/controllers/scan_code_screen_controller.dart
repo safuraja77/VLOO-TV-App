@@ -79,16 +79,15 @@ class ScanCodeScreenController extends GetxController {
       GetConnectionPairingResponse model =
           GetConnectionPairingResponse.fromJson(response.data);
       if (model.status == true && model.message == 'Screen Details') {
-        if (model.pairingResult != null &&
-            model.pairingResult!.screenCode != "") {
+        if (model.result != null && model.result!.screenCode != "") {
           SharedPreferences.saveQrCode(qrCode.value);
-          if (model.pairingResult!.orientation == "") {
+          if (model.result!.orientation == "") {
             Get.offNamed(Routes.selectOrientationScreenMobile);
           } else {
-            if (model.pairingResult!.title == "") {
+            if (model.result!.title == "") {
               Get.offNamed(Routes.nameScreenMobile);
             } else {
-              if (model.pairingResult?.status != "Connected") {
+              if (model.result?.status != "Connected") {
                 Get.put<AttachMediaScreenMobileController>(
                     AttachMediaScreenMobileController());
                 Get.offNamed(Routes.attachMediaScreenMobile);
@@ -98,26 +97,25 @@ class ScanCodeScreenController extends GetxController {
                     const Duration(seconds: 5),
                     (() {
                       Utils.alertDialogBox(
-                          context: Get.context!,
-                          description:
-                              "Please attach media to this screen on mobile app to continue.",
-                          pText: "Ok",
-                          nText: "",
-                          onPressedPositive: () {
-                            Navigator.of(Get.context!).pop();
-                            isPopupShownOnce = true;
-                          },
-                          onPressedNegative: () {
-                            Navigator.of(Get.context!).pop();
-                          });
+                        context: Get.context!,
+                        description:
+                            "Please attach media to this screen on mobile app to continue.",
+                        pText: "Ok",
+                        nText: "",
+                        onPressedPositive: () {
+                          Navigator.of(Get.context!).pop();
+                          isPopupShownOnce = true;
+                        },
+                        onPressedNegative: () {
+                          Navigator.of(Get.context!).pop();
+                        },
+                      );
                     }),
                   );
                 }
               } else {
                 Get.put<DownloadMediaController>(DownloadMediaController());
-                Get.to(
-                  const DownloadMediaView(),
-                );
+                Get.to(const DownloadMediaView(), arguments: model.result);
                 timer.cancel();
               }
             }

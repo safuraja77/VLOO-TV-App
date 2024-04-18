@@ -13,9 +13,10 @@ class MediaModel {
     this.updatedAt,
     this.localUrl,
     this.thumbnail,
+    this.is_template,
   });
 
-  MediaModel.fromJson(dynamic json) {
+  MediaModel.fromMap(dynamic json) {
     id = json['id'];
     userId = json['user_id'];
     name = json['name'];
@@ -29,6 +30,7 @@ class MediaModel {
     updatedAt = json['updated_at'];
     thumbnail = json['thumbnail'];
     localUrl = json['localUrl'];
+    is_template = json['is_template'];
   }
   num? id;
   num? userId;
@@ -43,6 +45,7 @@ class MediaModel {
   String? updatedAt;
   String? thumbnail;
   String? localUrl;
+  bool? is_template;
 
   MediaModel copyWith({
     num? id,
@@ -58,6 +61,7 @@ class MediaModel {
     String? updatedAt,
     String? thumbnail,
     String? localUrl,
+    bool? is_template,
   }) =>
       MediaModel(
         id: id ?? this.id,
@@ -73,8 +77,9 @@ class MediaModel {
         updatedAt: updatedAt ?? this.updatedAt,
         thumbnail: thumbnail ?? this.thumbnail,
         localUrl: localUrl ?? this.localUrl,
+        is_template: is_template ?? is_template,
       );
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     final map = <String, dynamic>{};
     map['id'] = id;
     map['user_id'] = userId;
@@ -89,6 +94,7 @@ class MediaModel {
     map['updated_at'] = updatedAt;
     map['thumbnail'] = thumbnail;
     map['localUrl'] = localUrl;
+    map['is_template'] = is_template;
     return map;
   }
 }

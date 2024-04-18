@@ -13,7 +13,6 @@ class PairingResult {
     this.updatedAt,
     this.screenCode,
     this.uploadMedias,
-    this.templates,
   });
 
   PairingResult.fromJson(dynamic json) {
@@ -29,13 +28,11 @@ class PairingResult {
     if (json['uploadMedias'] != null) {
       uploadMedias = [];
       json['uploadMedias'].forEach((v) {
-        uploadMedias?.add(MediaModel.fromJson(v));
-      });
-    }
-    if (json['templates'] != null) {
-      templates = [];
-      json['templates'].forEach((v) {
-        templates?.add(TemplatesModel.fromMap(v));
+        if (v['is_template'] == true) {
+          uploadMedias?.add(TemplatesModel.fromJson(v));
+        } else {
+          uploadMedias?.add(MediaModel.fromMap(v));
+        }
       });
     }
   }
@@ -48,8 +45,7 @@ class PairingResult {
   String? createdAt;
   String? updatedAt;
   String? screenCode;
-  List<MediaModel>? uploadMedias;
-  List<TemplatesModel>? templates;
+  List<dynamic>? uploadMedias;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -65,9 +61,7 @@ class PairingResult {
     if (uploadMedias != null) {
       map['uploadMedias'] = uploadMedias?.map((v) => v.toJson()).toList();
     }
-    if (templates != null) {
-      map['templates'] = templates?.map((v) => v.toMap()).toList();
-    }
+
     return map;
   }
 }
