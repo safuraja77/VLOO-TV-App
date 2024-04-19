@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vloo_tv_v2/app/data/models/GetConnectionPairingResponse.dart';
+import 'package:vloo_tv_v2/app/data/models/get_connection_pairing_resp.dart';
 import 'package:vloo_tv_v2/app/data/utils/SharedPreferences.dart';
 import 'package:vloo_tv_v2/app/data/utils/app_urls.dart';
 import 'package:vloo_tv_v2/app/modules/attach_media_screen_mobile/controllers/attach_media_screen_mobile_controller.dart';

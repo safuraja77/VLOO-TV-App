@@ -1,7 +1,16 @@
-import 'package:vloo_tv_v2/app/data/models/media_model.dart';
-import 'package:vloo_tv_v2/app/data/models/template/template.dart';
+import 'package:vloo_tv_v2/app/data/models/template/template_model.dart';
 
 class PairingResult {
+  final num? id;
+  final num? userId;
+  final String? title;
+  final String? dateOfFirstConnection;
+  final String? orientation;
+  final String? status;
+  final String? createdAt;
+  final String? updatedAt;
+  final String? screenCode;
+  final List<MediaTempModel>? uploadMedias;
   PairingResult({
     this.id,
     this.userId,
@@ -15,53 +24,62 @@ class PairingResult {
     this.uploadMedias,
   });
 
-  PairingResult.fromJson(dynamic json) {
-    id = json['id'];
-    userId = json['user_id'];
-    title = json['title'];
-    dateOfFirstConnection = json['date_of_first_connection'];
-    orientation = json['orientation'];
-    status = json['status'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    screenCode = json['screen_code'];
-    if (json['uploadMedias'] != null) {
-      uploadMedias = [];
-      json['uploadMedias'].forEach((v) {
-        if (v['is_template'] == true) {
-          uploadMedias?.add(TemplatesModel.fromJson(v));
-        } else {
-          uploadMedias?.add(MediaModel.fromMap(v));
-        }
-      });
-    }
+  PairingResult copyWith({
+    num? id,
+    num? userId,
+    String? title,
+    String? dateOfFirstConnection,
+    String? orientation,
+    String? status,
+    String? createdAt,
+    String? updatedAt,
+    String? screenCode,
+    List<MediaTempModel>? uploadMedias,
+  }) {
+    return PairingResult(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      title: title ?? this.title,
+      dateOfFirstConnection:
+          dateOfFirstConnection ?? this.dateOfFirstConnection,
+      orientation: orientation ?? this.orientation,
+      status: status ?? this.status,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      screenCode: screenCode ?? this.screenCode,
+      uploadMedias: uploadMedias ?? this.uploadMedias,
+    );
   }
-  num? id;
-  num? userId;
-  String? title;
-  String? dateOfFirstConnection;
-  String? orientation;
-  String? status;
-  String? createdAt;
-  String? updatedAt;
-  String? screenCode;
-  List<dynamic>? uploadMedias;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['user_id'] = userId;
-    map['title'] = title;
-    map['date_of_first_connection'] = dateOfFirstConnection;
-    map['orientation'] = orientation;
-    map['status'] = status;
-    map['created_at'] = createdAt;
-    map['updated_at'] = updatedAt;
-    map['screen_code'] = screenCode;
-    if (uploadMedias != null) {
-      map['uploadMedias'] = uploadMedias?.map((v) => v.toJson()).toList();
-    }
+    return <String, dynamic>{
+      'id': id,
+      'userId': userId,
+      'title': title,
+      'date_of_first_connection': dateOfFirstConnection,
+      'orientation': orientation,
+      'status': status,
+      'created_at': createdAt,
+      'updated_at': updatedAt,
+      'screen_code': screenCode,
+      'uploadMedias': uploadMedias!.map((x) => x.toJson()).toList(),
+    };
+  }
 
-    return map;
+  factory PairingResult.fromJson(Map<String, dynamic> json) {
+    return PairingResult(
+      id: json['id'],
+      userId: json['userId'],
+      title: json['title'],
+      dateOfFirstConnection: json['date_of_first_connection'],
+      orientation: json['orientation'],
+      status: json['status'],
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
+      screenCode: json['screen_code'],
+      uploadMedias: (json['uploadMedias'] as List<dynamic>?)
+          ?.map((e) => MediaTempModel.fromJson(e))
+          .toList(),
+    );
   }
 }

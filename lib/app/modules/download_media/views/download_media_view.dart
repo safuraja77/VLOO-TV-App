@@ -6,6 +6,7 @@ import 'package:vloo_tv_v2/app/data/configs/app_theme.dart';
 import 'package:vloo_tv_v2/app/data/configs/sizing.dart';
 import 'package:vloo_tv_v2/app/data/configs/text.dart';
 import 'package:vloo_tv_v2/app/data/utils/static_assets.dart';
+import 'package:vloo_tv_v2/app/data/utils/strings.dart';
 
 import '../controllers/download_media_controller.dart';
 
@@ -29,8 +30,7 @@ class DownloadMediaView extends GetView<DownloadMediaController> {
                   width: 200.w, height: 200.h),
               SizedBox(height: 20.h),
               Text(
-                // Strings.pleaseWaitForStream,
-                controller.pairingResult!.orientation!,
+                Strings.pleaseWaitForStream,
                 textAlign: TextAlign.center,
                 style: CustomTextStyle.font20R.copyWith(
                   color: AppColor.appLightBlue.withOpacity(0.8),

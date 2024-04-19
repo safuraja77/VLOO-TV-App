@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:vloo_tv_v2/app/modules/video_player/bindings/video_player_binding.dart';
+import 'package:vloo_tv_v2/app/modules/video_player/views/video_player_view.dart';
 
 import '../modules/attach_media_screen_mobile/bindings/attach_media_screen_mobile_binding.dart';
 import '../modules/attach_media_screen_mobile/views/attach_media_screen_mobile_view.dart';
@@ -43,6 +45,11 @@ class AppPages {
       name: _Paths.attachMediaScreenMobile,
       page: () => const AttachMediaScreenMobileView(),
       binding: AttachMediaScreenMobileBinding(),
+    ),
+     GetPage(
+      name: _Paths.VIDEO_PLAYER,
+      page: () => const VideoPlayerView(),
+      binding: VideoPlayerBinding(),
     ),
   ];
 }

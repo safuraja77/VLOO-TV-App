@@ -1,33 +1,23 @@
-import 'dart:math';
-
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerControler extends GetxController {
-  int currentVideoIndex = 0;
-  List<String> videos = [];
-  VideoPlayerControler({required this.videos});
+  RxInt currentVideoIndex = 0.obs;
+  RxList<String> videos = <String>[].obs;
   VideoPlayerController? videoController;
 
   @override
   void onInit() {
+    if (Get.arguments != null) {
+      videos.value = Get.arguments['urls'];
+      initializeVideoController();
+    }
     super.onInit();
-    log(num.parse("Initializing video controller bla bla bla"));
-    initializeVideoController();
   }
 
-  // @override
-  // void onReady() {
-  //   print("Initializing video controller bla bla bla");
-  //   initializeVideoController();
-  //   super.onReady();
-  // }
-
   void initializeVideoController() {
-    log(num.parse("Current index  is $currentVideoIndex"));
-
-    videoController =
-        VideoPlayerController.networkUrl(Uri.parse(videos[currentVideoIndex]));
+    videoController = VideoPlayerController.networkUrl(
+        Uri.parse(videos[currentVideoIndex.value]));
 
     videoController!.initialize().then((_) {
       videoController!.play();
@@ -42,15 +32,11 @@ class VideoPlayerControler extends GetxController {
   }
 
   void onNext() async {
-    log(num.parse(
-        'Current index: =====> $currentVideoIndex, Videos length: ====> ${videos.length}'));
-
-    currentVideoIndex = (currentVideoIndex + 1) % videos.length;
-    log(num.parse('Current index is =====> $currentVideoIndex'));
+    currentVideoIndex.value = (currentVideoIndex.value + 1) % videos.length;
     videoController!.dispose();
 
-    videoController =
-        VideoPlayerController.networkUrl(Uri.parse(videos[currentVideoIndex]));
+    videoController = VideoPlayerController.networkUrl(
+        Uri.parse(videos[currentVideoIndex.value]));
 
     await videoController!.initialize();
 

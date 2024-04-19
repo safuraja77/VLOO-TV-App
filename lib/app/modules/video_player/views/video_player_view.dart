@@ -5,15 +5,12 @@ import 'package:video_player/video_player.dart';
 import 'package:vloo_tv_v2/app/modules/video_player/controllers/video_player_controller.dart';
 
 class VideoPlayerView extends GetView<VideoPlayerControler> {
-  final List<String> urls;
   const VideoPlayerView({
     super.key,
-    required this.urls,
   });
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(VideoPlayerControler(videos: urls));
     return Scaffold(
       body: OrientationBuilder(
         builder: (context, orientation) {
