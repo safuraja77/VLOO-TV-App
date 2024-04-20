@@ -22,18 +22,20 @@ class PreviewTemplateView extends GetView<PreviewTemplateController> {
         // angle:  270 * (3.1415926535897932 / 1),
         child: AspectRatio(
           aspectRatio: 16.w / 9.h,
-          child: Obx(() => Container(
-                color: Colors.white,
-                child: DragAndResizeWidget(
-                    singleItemList: controller.singleItemList.value,
-                    startDragOffset: controller.startDragOffset.value,
-                    backgroundImage: controller.backgroundImage.value,
-                    isBottomSheetLocked: false,
-                    selectedTemplateBackGroundColor:
-                        controller.currentTemplateBackgroundColor.value,
-                    orientation: Strings.landscape,
-                    callBack: (list) {}),
-              )),
+          child: Obx(
+            () => Container(
+              color: Colors.white,
+              child: DragAndResizeWidget(
+                  singleItemList: controller.singleItemList,
+                  startDragOffset: controller.startDragOffset,
+                  backgroundImage: controller.backgroundImage.value,
+                  isBottomSheetLocked: false,
+                  selectedTemplateBackGroundColor:
+                      controller.currentTemplateBackgroundColor.value,
+                  orientation: Strings.landscape,
+                  callBack: (list) {}),
+            ),
+          ),
         ),
       ),
       // ),

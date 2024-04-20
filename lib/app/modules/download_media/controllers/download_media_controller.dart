@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:vloo_tv_v2/app/data/models/pairing_result.dart';
 import 'dart:developer';
@@ -11,8 +12,6 @@ import 'package:http/http.dart' as http;
 
 import 'package:vloo_tv_v2/app/data/models/template/template_model.dart';
 import 'package:vloo_tv_v2/app/data/utils/SharedPreferences.dart';
-import 'package:vloo_tv_v2/app/modules/previewTemplate/controllers/preview_template_controller.dart';
-import 'package:vloo_tv_v2/app/modules/previewTemplate/views/preview_template_view.dart';
 import 'package:vloo_tv_v2/app/routes/app_pages.dart';
 
 class DownloadMediaController extends GetxController {
@@ -82,11 +81,19 @@ class DownloadMediaController extends GetxController {
       log('ID  ${pairingResult!.value.id}');
       log('Orientation is  ${pairingResult!.value.orientation}');
       log('Code is  ${pairingResult!.value.screenCode}');
+      print(pairingResult!.value.uploadMedias);
 
       if (pairingResult!.value.uploadMedias != null) {
         for (var element in pairingResult!.value.uploadMedias!) {
-          log(element.url ?? 'N');
-          await readFileFromPath(element);
+          // log(element.url ?? 'N');
+          if (element.isTemplate == true) {
+            Future.delayed(const Duration(seconds: 5), () {
+              return const CircularProgressIndicator();
+            });
+          }
+          element.isTemplate == true
+              ? const Duration(seconds: 5)
+              : await readFileFromPath(element);
         }
         SharedPreferences.savePairingResultObject(pairingResult!.value);
 

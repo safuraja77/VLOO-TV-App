@@ -75,7 +75,7 @@ class PreviewTemplateController extends GetxController
             Utils.fetchColorFromStringColor(templateList[0].backgroundColor) ??
                 "";
 
-        singleItemList.value = templateList[0].elements!;
+        // singleItemList.value = templateList[0].elements!;
 
         for (var model in singleItemList) {
           if (model.type == 'Image') {
