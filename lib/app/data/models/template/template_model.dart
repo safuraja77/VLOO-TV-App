@@ -1,3 +1,5 @@
+import 'package:vloo_tv_v2/app/data/models/template/template_single_item_model.dart';
+
 class MediaTempModel {
   final int id;
   final int userId;
@@ -25,6 +27,7 @@ class MediaTempModel {
   final String? filesize;
   final String? thumbnail;
   String? localUrl;
+  List<TemplateSingleItemModel>? elements;
 
   MediaTempModel({
     required this.id,
@@ -53,6 +56,7 @@ class MediaTempModel {
     this.filesize,
     this.thumbnail,
     this.localUrl,
+    this.elements,
   });
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
@@ -82,6 +86,7 @@ class MediaTempModel {
       'filesize': filesize,
       'thumbnail': thumbnail,
       'localUrl': localUrl,
+      'elements': elements?.map((e) => e.toJson()).toList(),
     };
   }
 
@@ -113,6 +118,9 @@ class MediaTempModel {
       filesize: json['filesize'],
       thumbnail: json['thumbnail'],
       localUrl: json['loalUrl'],
+      elements: (json['elements'] as List<dynamic>?)
+          ?.map((e) => TemplateSingleItemModel.fromJson(e))
+          .toList(),
     );
   }
 }

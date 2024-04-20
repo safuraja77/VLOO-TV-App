@@ -10,6 +10,7 @@ abstract class Routes {
   static const attachMediaScreenMobile = _Paths.attachMediaScreenMobile;
   static const downloadMedia = _Paths.downloadMedia;
   static const VIDEO_PLAYER = _Paths.VIDEO_PLAYER;
+  static const templates = _Paths.templates;
 }
 
 abstract class _Paths {
@@ -22,4 +23,5 @@ abstract class _Paths {
   static const attachMediaScreenMobile = '/attach-media-screen-mobile';
   static const downloadMedia = '/download-media';
   static const VIDEO_PLAYER = '/video-player';
+  static const templates = '/preview-template';
 }

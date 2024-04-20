@@ -39,6 +39,8 @@ dependencies:
   animate_do: ^3.1.2
   neon_widgets: ^2.0.0
   cached_network_image: ^3.3.0
+  spring: ^2.0.2
+
 
   flutter_box_transform: ^0.4.2
 
@@ -55,7 +57,7 @@ flutter:
   fonts:
     - family: FlutterCustomIcons
       fonts:
-          - asset: assets/fonts/FlutterCustomIcons.ttf
+        - asset: assets/fonts/FlutterCustomIcons.ttf
 
     - family: Poppins
       fonts:
@@ -74,4 +76,61 @@ flutter:
           weight: 200
         - asset: assets/fonts/Poppins-Thin.ttf
           weight: 100
+
+    - family: Caveat
+      fonts:
+        - asset: assets/fonts/Caveat-Regular.ttf
+          weight: 700
+    - family: ChalkDuster
+      fonts:
+        - asset: assets/fonts/Chalkduster.ttf
+          weight: 700
+    - family: chantal
+      fonts:
+        - asset: assets/fonts/chantal_medium.ttf
+          weight: 700
+    - family: CocogooseTrial
+      fonts:
+        - asset: assets/fonts/Cocogoose_trial.otf
+          weight: 700
+    - family: DSMoster
+      fonts:
+        - asset: assets/fonts/DSMoster.ttf
+          weight: 700
+    - family: EBGaramond08
+      fonts:
+        - asset: assets/fonts/EBGaramond08-Regular.ttf
+          weight: 700
+    - family: edosz
+      fonts:
+        - asset: assets/fonts/edosz.ttf
+          weight: 700
+    - family: Gagalin
+      fonts:
+        - asset: assets/fonts/Gagalin-Regular.ttf
+          weight: 700
+    - family: KOMIKAX
+      fonts:
+        - asset: assets/fonts/KOMIKAX_.ttf
+          weight: 700
+    - family: NocturneSerif
+      fonts:
+        - asset: assets/fonts/NocturneSerif-Regular.ttf
+          weight: 700
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/OpenSans-Bold.ttf
+          weight: 700
+    - family: PoiretOne
+      fonts:
+        - asset: assets/fonts/PoiretOne-Regular.ttf
+          weight: 700
+    - family: RifficFree
+      fonts:
+        - asset: assets/fonts/RifficFree-Bold.ttf
+          weight: 700
+    - family: UTLaurelle
+      fonts:
+        - asset: assets/fonts/UTLaurelle-Regular.ttf
+          weight: 700
 

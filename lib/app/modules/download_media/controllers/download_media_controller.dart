@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/widgets.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
@@ -10,6 +11,8 @@ import 'package:http/http.dart' as http;
 
 import 'package:vloo_tv_v2/app/data/models/template/template_model.dart';
 import 'package:vloo_tv_v2/app/data/utils/SharedPreferences.dart';
+import 'package:vloo_tv_v2/app/modules/previewTemplate/controllers/preview_template_controller.dart';
+import 'package:vloo_tv_v2/app/modules/previewTemplate/views/preview_template_view.dart';
 import 'package:vloo_tv_v2/app/routes/app_pages.dart';
 
 class DownloadMediaController extends GetxController {
@@ -65,52 +68,6 @@ class DownloadMediaController extends GetxController {
     }
   }
 
-  // Future<void> getMediaConnectionPairing() async {
-  //   var code = SharedPreferences.getQrCode();
-
-  //   var dio = Dio();
-  //   var response = await dio.request("${AppUrls.mediaConnection}?code=$code",
-  //       options: Options(method: 'GET'));
-  //   try {
-  //     GetConnectionPairingResponse model =
-  //         GetConnectionPairingResponse.fromJson(response.data);
-  //     if (model.status == true && model.message == 'Screen Details') {
-  //       if (model.result != null && model.result!.screenCode != "") {
-  //         if (model.result!.orientation == "") {
-  //           Get.put<SelectOrientationScreenMobileController>(
-  //               SelectOrientationScreenMobileController());
-  //           Get.offNamed(Routes.selectOrientationScreenMobile);
-  //         } else {
-  //           if (model.result!.title == "") {
-  //             Get.put<NameScreenMobileController>(NameScreenMobileController());
-  //             Get.offNamed(Routes.nameScreenMobile);
-  //           } else {
-  //             if (model.result?.status != "Connected") {
-  //               Directory appDocDir = await getApplicationDocumentsDirectory();
-  //               String videoFilePath =
-  //                   '${appDocDir.path}/${mediaTempModel.id}.${mediaTempModel.format}';
-  //               final File file = File(videoFilePath);
-  //               if (file.existsSync()) {
-  //                 timer.cancel();
-  //               } else {
-  //                 Get.put<DownloadMediaController>(DownloadMediaController());
-  //                 Get.offAll(const DownloadMediaView(),
-  //                     arguments: model.result);
-  //               }
-  //             }
-  //           }
-  //         }
-  //       } else {
-  //         Get.snackbar('Success', 'Not Paired');
-  //       }
-  //     } else {
-  //       throw Exception('Failed');
-  //     }
-  //   } catch (error) {
-  //     throw Exception(error);
-  //   } finally {}
-  // }
-
   @override
   void onClose() {
     timer.cancel();
@@ -143,6 +100,8 @@ class DownloadMediaController extends GetxController {
         }
       }
     }
+    // Get.put<PreviewTemplateController>(PreviewTemplateController());
+    // Get.to(const PreviewTemplateView());
     super.onReady();
   }
 }

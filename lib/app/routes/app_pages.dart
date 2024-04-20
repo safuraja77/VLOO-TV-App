@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:vloo_tv_v2/app/modules/previewTemplate/bindings/preview_template_binding.dart';
+import 'package:vloo_tv_v2/app/modules/previewTemplate/views/preview_template_view.dart';
 import 'package:vloo_tv_v2/app/modules/video_player/bindings/video_player_binding.dart';
 import 'package:vloo_tv_v2/app/modules/video_player/views/video_player_view.dart';
 
@@ -32,24 +34,35 @@ class AppPages {
       binding: ScanCodeScreenBinding(),
     ),
     GetPage(
+      transitionDuration: const Duration(seconds: 2),
+      transition: Transition.leftToRight,
       name: _Paths.selectOrientationScreenMobile,
       page: () => const SelectOrientationScreenMobileView(),
       binding: SelectOrientationScreenMobileBinding(),
     ),
     GetPage(
+      transitionDuration: const Duration(seconds: 2),
+      transition: Transition.fade,
       name: _Paths.nameScreenMobile,
       page: () => const NameScreenMobileView(),
       binding: NameScreenMobileBinding(),
     ),
     GetPage(
+      transitionDuration: const Duration(seconds: 2),
+      transition: Transition.fade,
       name: _Paths.attachMediaScreenMobile,
       page: () => const AttachMediaScreenMobileView(),
       binding: AttachMediaScreenMobileBinding(),
     ),
-     GetPage(
+    GetPage(
       name: _Paths.VIDEO_PLAYER,
       page: () => const VideoPlayerView(),
       binding: VideoPlayerBinding(),
+    ),
+    GetPage(
+      name: _Paths.VIDEO_PLAYER,
+      page: () => const PreviewTemplateView(),
+      binding: PreviewTemplateBinding(),
     ),
   ];
 }
