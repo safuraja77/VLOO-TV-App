@@ -1,6 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:vloo_tv_v2/app/data/models/template/template_single_item_model.dart';
+
 class MediaTempModel {
-  final int id;
-  final int userId;
+  final int? id;
+  final int? userId;
   final String? title;
   final String? featureImg;
   final String? currency;
@@ -25,26 +28,27 @@ class MediaTempModel {
   final String? filesize;
   final String? thumbnail;
   String? localUrl;
+  final List<TemplateSingleItemModel>? templateElements;
 
   MediaTempModel({
-    required this.id,
-    required this.userId,
+    this.id,
+    this.userId,
     this.title,
-    required this.featureImg,
-    required this.currency,
-    required this.currencyAlignment,
-    required this.description,
-    required this.backgroundColor,
-    required this.backgroundImage,
-    required this.orientation,
-    required this.isLocked,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.name,
-    required this.status,
-    required this.isLive,
-    required this.isPredefined,
-    required this.isTemplate,
+    this.featureImg,
+    this.currency,
+    this.currencyAlignment,
+    this.description,
+    this.backgroundColor,
+    this.backgroundImage,
+    this.orientation,
+    this.isLocked,
+    this.createdAt,
+    this.updatedAt,
+    this.name,
+    this.status,
+    this.isLive,
+    this.isPredefined,
+    this.isTemplate,
     this.url,
     this.type,
     this.format,
@@ -53,6 +57,7 @@ class MediaTempModel {
     this.filesize,
     this.thumbnail,
     this.localUrl,
+    this.templateElements,
   });
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
@@ -82,6 +87,7 @@ class MediaTempModel {
       'filesize': filesize,
       'thumbnail': thumbnail,
       'localUrl': localUrl,
+      // 'template_elements': templateElements?.map((e) => e.toJson()).toList(),
     };
   }
 
@@ -113,6 +119,11 @@ class MediaTempModel {
       filesize: json['filesize'],
       thumbnail: json['thumbnail'],
       localUrl: json['loalUrl'],
+      templateElements: json['template_elements'] != null
+          ? (json['template_elements'] as List<dynamic>?)
+              ?.map((e) => TemplateSingleItemModel.fromJson(e))
+              .toList()
+          : [],
     );
   }
 }

@@ -16,7 +16,6 @@ import 'package:vloo_tv_v2/app/data/models/template/template_single_item_model.d
 import 'package:vloo_tv_v2/app/data/utils/static_assets.dart';
 import 'package:vloo_tv_v2/app/data/utils/strings.dart';
 import 'package:vloo_tv_v2/app/data/utils/utils.dart';
-import 'package:vloo_tv_v2/app/modules/previewTemplate/controllers/preview_template_controller.dart';
 import 'package:vloo_tv_v2/app/modules/previewTemplate/views/circular_label.dart';
 
 import 'rectangle_label.dart';
@@ -24,8 +23,8 @@ import 'rectangle_label_rounded.dart';
 
 // ignore: must_be_immutable
 class DragAndResizeWidget extends StatefulWidget {
-  PreviewTemplateController templatesController =
-      Get.find<PreviewTemplateController>();
+  // PreviewTemplateController templatesController =
+  //     Get.find<PreviewTemplateController>();
 
   final List<TemplateSingleItemModel> singleItemList;
   final bool isBottomSheetLocked;
@@ -575,9 +574,8 @@ class _DragAndResizeWidgetState extends State<DragAndResizeWidget> {
           decoration: BoxDecoration(
               color: widget.selectedTemplateBackGroundColor,
               border: Border.all(
-                  color: widget.templatesController.isUnLock?.value == true
-                      ? AppColor.appLightBlue
-                      : AppColor.red,
+                  color: AppColor
+                      .red, //  widget.templatesController.isUnLock?.value == tru ? AppColor.appLightBl:
                   width: 0.5),
               image: widget.backgroundImage == ""
                   ? null
