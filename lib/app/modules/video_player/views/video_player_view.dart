@@ -17,7 +17,6 @@ class VideoPlayerView extends GetView<VideoPlayerControler> {
 
   @override
   Widget build(BuildContext context) {
-    // final tempCtrl = Get.find<DownloadMediaController>();
     return WillPopScope(
       onWillPop: () async {
         bool exitConfirmed = await showDialog(

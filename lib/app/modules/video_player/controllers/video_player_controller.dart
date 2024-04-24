@@ -57,20 +57,19 @@ class VideoPlayerControler extends GetxController {
         isTemp.value = true;
         log(currentTempIndex.value);
 
-        // currentTemplate.value = templates[currentTempIndex.value];
-            currentTemplate.value = templates[currentTempIndex.value];
+        currentTemplate.value = templates[currentTempIndex.value];
 
-        Timer(
+        timer = Timer(
           const Duration(seconds: 5),
           () {
-
             currentTempIndex.value =
                 (currentTempIndex.value + 1) % templates.length;
             log(currentTempIndex.value);
           },
         );
+        timer.cancel();
         log(currentTempIndex.value);
-
+        displayNextTemplate();
       } else {
         isTemp.value = false;
         currentVideoIndex.value = (currentVideoIndex.value + 1) % videos.length;
@@ -86,48 +85,24 @@ class VideoPlayerControler extends GetxController {
   }
 
   void displayNextTemplate() {
-    if (currentTempIndex.value < templates.length - 1) {
+    if (currentTempIndex.value < templates.length) {
       currentTemplate.value = templates[currentTempIndex.value];
       isTemp.value = true;
       print("template nmbr  ${currentTempIndex.value}");
 
-      Future.delayed(const Duration(seconds: 5), () {
-        print("Checking for more templates");
-        currentTempIndex.value =
-            (currentTempIndex.value + 1) % templates.length;
-        displayNextTemplate();
-      });
+      currentTempIndex.value = (currentTempIndex.value + 1) % templates.length;
     } else {
-      print("All templates displayed");
+      print("templates ended");
       isTemp.value = false;
       onNext();
     }
   }
 
-  // void onPrevious() {
-  //   if (currentVideoIndex > 0) {
-  //     currentVideoIndex--;
-  //     videoController!.dispose();
-  //     videoController = VideoPlayerController.networkUrl(Uri.parse(
-  //       videos[currentVideoIndex],
-  //     ));
-  //     videoController!.initialize();
-  //     videoController!.play();
-  //   }
-  // }
-
-  // void togglePause() {
-  //   if (videoController != null && videoController!.value.isPlaying) {
-  //     videoController!.pause();
-  //   } else if (videoController != null) {
-  //     videoController!.play();
-  //   }
-  // }
-
   @override
   void onClose() {
     super.onClose();
     videoController!.dispose();
+    timer.cancel();
   }
 
   @override
@@ -142,18 +117,4 @@ class VideoPlayerControler extends GetxController {
     }
     super.onInit();
   }
-
-  // @override
-  // void onReady() {
-  //   if (Get.arguments != null) {
-  //     videos.value = Get.arguments['urls'] as List<String>;
-
-  //     templates.value = Get.find<DownloadMediaController>().tempList;
-
-  //     print('Templateeeeeees $templates');
-  //     initializeVideoController();
-  //   }
-
-  //   super.onReady();
-  // }
 }
