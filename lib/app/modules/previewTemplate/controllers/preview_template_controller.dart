@@ -89,13 +89,22 @@ class PreviewTemplateController extends GetxController
               model.comingFrom = Strings.editElementPrice;
             }
           }
+
           model.rect = Rect.fromLTWH(
               model.xaxis!.toDouble() * 3.6.w,
-              model.yaxis!.toDouble() * 3.h,
-              model.width! * 3.w,
-              model.height! * 3.h);
-          model.width = model.width! * 2.5.w;
-          model.height = model.height! * 2.5.h;
+              model.yaxis!.toDouble() * 3.2.h,
+              model.width! * 3.2.w,
+              model.height! * 3.2.h);
+          model.width = model.width! * 3.2.w;
+          model.height = model.height! * 3.2.h;
+
+          // model.rect = Rect.fromLTWH(
+          //     model.xaxis!.toDouble() * 3.6.w,
+          //     model.yaxis!.toDouble() * 3.h,
+          //     model.width! * 3.w,
+          //     model.height! * 3.h);
+          // model.width = model.width! * 2.5.w;
+          // model.height = model.height! * 2.5.h;
           model.isSelected = false;
           model.fontSize = (model.fontSize == 0.0) ? 14 : model.fontSize;
           model.valueLocal =

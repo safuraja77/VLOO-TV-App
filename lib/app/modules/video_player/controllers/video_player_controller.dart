@@ -7,23 +7,28 @@ import 'package:vloo_tv_v2/app/data/models/template/template_model.dart';
 import 'package:vloo_tv_v2/app/modules/download_media/controllers/download_media_controller.dart';
 
 class VideoPlayerControler extends GetxController {
-  RxInt currentVideoIndex = 0.obs;
-  RxList<String> videos = <String>[].obs;
+  int currentVideoIndex = 0;
+  List<String> videos = [];
   late Timer timer;
-  RxList<MediaTempModel> templates = <MediaTempModel>[].obs;
+  List<MediaTempModel> templates = <MediaTempModel>[].obs;
   VideoPlayerController? videoController;
   RxBool isTemp = false.obs;
-  RxInt currentTempIndex = 0.obs;
-  var currentTemplate = MediaTempModel().obs;
+  int currentTempIndex = 0;
+  var currentTemplate = MediaTempModel();
 
   void initializeVideoController() {
     if (videos.isNotEmpty) {
       videoController = VideoPlayerController.networkUrl(
-          Uri.parse(videos[currentVideoIndex.value]));
+        Uri.parse(
+          videos[currentVideoIndex],
+        ),
+      );
 
-      videoController!.initialize().then((_) {
-        videoController!.play();
-      });
+      videoController!.initialize().then(
+        (_) {
+          videoController!.play();
+        },
+      );
       videoController!.addListener(
         () {
           if (videoController!.value.isCompleted) {
@@ -37,45 +42,45 @@ class VideoPlayerControler extends GetxController {
   }
 
   void onNext() async {
-    if (videos.isNotEmpty && !(currentVideoIndex.value == videos.length - 1)) {
-      isTemp.value = false;
-      currentVideoIndex.value = (currentVideoIndex.value + 1) % videos.length;
-      videoController!.dispose();
+    if (videos.isNotEmpty && !(currentVideoIndex == videos.length )) {
+      print(
+        'Video Index Value is $currentVideoIndex',
+      );
+
+      if (templates.isEmpty) {
+        currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+      } else {
+        currentVideoIndex = currentVideoIndex + 1;
+      }
+      print(
+        'Video Index Value is $currentVideoIndex',
+      );
+      if (templates.isNotEmpty) {
+        currentTempIndex = 0;
+      }
 
       videoController = VideoPlayerController.networkUrl(
-          Uri.parse(videos[currentVideoIndex.value]));
-      await videoController!.initialize();
+          Uri.parse(videos[currentVideoIndex]));
+      await videoController!.initialize(); // codec error
       videoController!.play();
       initializeVideoController();
+
       update();
     } else if (templates.isNotEmpty) {
-      if (videos.isNotEmpty) {
-        videoController!.dispose();
-      }
-      if (!(currentTempIndex.value == templates.length - 1) ||
-          currentTempIndex.value == templates.length - 1) {
+      videoController?.dispose();
+      if (!(currentTempIndex == templates.length)) {
         isTemp.value = true;
-        log(currentTempIndex.value);
-
-        currentTemplate.value = templates[currentTempIndex.value];
-
-        timer = Timer(
-          const Duration(seconds: 5),
-          () {
-            currentTempIndex.value =
-                (currentTempIndex.value + 1) % templates.length;
-            log(currentTempIndex.value);
-          },
-        );
-        timer.cancel();
-        log(currentTempIndex.value);
-        displayNextTemplate();
+        print('Video Index Value is $currentTempIndex');
+        currentTemplate = templates[currentTempIndex];
+        print('Video Index Value is $currentTempIndex');
+        update();
+        templateController();
       } else {
         isTemp.value = false;
-        currentVideoIndex.value = (currentVideoIndex.value + 1) % videos.length;
+        currentVideoIndex = (currentVideoIndex + 1) % videos.length;
 
         videoController = VideoPlayerController.networkUrl(
-            Uri.parse(videos[currentVideoIndex.value]));
+            Uri.parse(videos[currentVideoIndex]));
         await videoController!.initialize();
         videoController!.play();
         initializeVideoController();
@@ -84,17 +89,28 @@ class VideoPlayerControler extends GetxController {
     }
   }
 
-  void displayNextTemplate() {
-    if (currentTempIndex.value < templates.length) {
-      currentTemplate.value = templates[currentTempIndex.value];
-      isTemp.value = true;
-      print("template nmbr  ${currentTempIndex.value}");
+  void templateController() {
+    if (templates.isNotEmpty) {
+      print('Template Index Value is $currentTempIndex');
 
-      currentTempIndex.value = (currentTempIndex.value + 1) % templates.length;
-    } else {
-      print("templates ended");
-      isTemp.value = false;
-      onNext();
+      Timer(
+        const Duration(seconds: 5),
+        () {
+          if (videos.isEmpty) {
+            currentTempIndex = (currentTempIndex + 1) % templates.length;
+          } else {
+            currentTempIndex = currentTempIndex + 1;
+          }
+          print('Template Index Value is $currentTempIndex');
+
+          if (videos.isNotEmpty && currentTempIndex == templates.length) {
+            isTemp.value = false;
+            currentVideoIndex = -1;
+          }
+          onNext();
+          print('Template Index Value is $currentTempIndex');
+        },
+      );
     }
   }
 
@@ -108,11 +124,10 @@ class VideoPlayerControler extends GetxController {
   @override
   void onInit() {
     if (Get.arguments != null) {
-      videos.value = Get.arguments['urls'] as List<String>;
+      videos = Get.arguments['urls'] as List<String>;
 
-      templates.value = Get.find<DownloadMediaController>().tempList;
+      templates = Get.find<DownloadMediaController>().tempList;
 
-      print('Templateeeeeees $templates');
       initializeVideoController();
     }
     super.onInit();

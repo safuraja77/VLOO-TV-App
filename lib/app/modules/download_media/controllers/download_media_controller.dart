@@ -44,11 +44,13 @@ class DownloadMediaController extends GetxController {
         await file.writeAsBytes(response.bodyBytes);
         await saveVideoToGallery(file.path);
         isMediaDownloaded.value = true;
-        pairingResult!
-            .value
-            .uploadMedias?[pairingResult!.value.uploadMedias!
-                .indexWhere((element) => element.id == mediaTempModel.id)]
-            .url = videoFilePath;
+        if (pairingResult != null) {
+          pairingResult
+              ?.value
+              .uploadMedias?[pairingResult!.value.uploadMedias!
+                  .indexWhere((element) => element.id == mediaTempModel.id)]
+              .url = videoFilePath;
+        }
       }
     } catch (e) {
       e.toString();

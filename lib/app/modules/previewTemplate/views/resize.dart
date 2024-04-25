@@ -141,7 +141,8 @@ class _DragAndResizeWidgetState extends State<DragAndResizeWidget> {
               templateSingleItemModel.textColor),
           font: templateSingleItemModel.fontFamily,
           shine: true,
-          fontSize: templateSingleItemModel.fontSize! * 10.w,
+          fontSize: templateSingleItemModel.fontSize! *
+              3.0.w, // change everywhere in file
           strokeWidthTextHigh: 3,
           blurRadius: 5,
           strokeWidthTextLow: 1,
