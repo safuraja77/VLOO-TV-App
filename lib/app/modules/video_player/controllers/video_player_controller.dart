@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
@@ -75,7 +74,7 @@ class VideoPlayerControler extends GetxController {
         print('Video Index Value is $currentTempIndex');
         update();
         templateController();
-      } else {
+      } else {                              /////// Maybe this thing is causing error
         isTemp.value = false;
         currentVideoIndex = (currentVideoIndex + 1) % videos.length;
 

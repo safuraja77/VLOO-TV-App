@@ -3,9 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:vloo_tv_v2/app/data/configs/sizing.dart';
 import 'package:vloo_tv_v2/app/data/models/template/template_single_item_model.dart';
-import 'package:vloo_tv_v2/app/modules/previewTemplate/controllers/preview_template_controller.dart';
+import 'package:vloo_tv_v2/app/modules/download_media/controllers/download_media_controller.dart';
 
-class RectangleLabel extends GetView<PreviewTemplateController> {
+class RectangleLabel extends GetView<DownloadMediaController> {
   final String backgroundImage;
   RxString text = ''.obs;
   final TextStyle? labelStyle;

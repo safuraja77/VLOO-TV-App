@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 import 'package:vloo_tv_v2/app/data/configs/sizing.dart';
 import 'package:vloo_tv_v2/app/data/utils/strings.dart';
+import 'package:vloo_tv_v2/app/data/utils/utils.dart';
 import 'package:vloo_tv_v2/app/modules/previewTemplate/views/resize.dart';
 import 'package:vloo_tv_v2/app/modules/video_player/controllers/video_player_controller.dart';
 
@@ -68,15 +69,12 @@ class VideoPlayerView extends GetView<VideoPlayerControler> {
                                   singleItemList: controler
                                       .currentTemplate.templateElements!,
                                   // startDragOffset: controller.startDragOffset,
-                                  backgroundImage: controler.currentTemplate
-                                      .templateElements!.first.backgroundImage,
+                                  backgroundImage:
+                                      controler.currentTemplate.backgroundImage,
                                   isBottomSheetLocked: false,
-                                  // selectedTemplateBackGroundColor: Color(
-                                  //   int.parse(
-                                  //     controller.currentTemplate.value
-                                  //         .templateElements!.first.backgroundColor!,
-                                  //   ),
-                                  // ),
+                                  selectedTemplateBackGroundColor:
+                                      Utils.fetchColorFromStringColor(controler
+                                          .currentTemplate.backgroundColor),
                                   orientation: Strings.landscape,
                                   callBack: (list) {},
                                 ),

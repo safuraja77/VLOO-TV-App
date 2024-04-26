@@ -11,8 +11,10 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 
 import 'package:vloo_tv_v2/app/data/models/template/template_model.dart';
+import 'package:vloo_tv_v2/app/data/models/template/template_single_item_model.dart';
 import 'package:vloo_tv_v2/app/data/utils/SharedPreferences.dart';
 import 'package:vloo_tv_v2/app/data/utils/strings.dart';
+import 'package:vloo_tv_v2/app/data/utils/utils.dart';
 import 'package:vloo_tv_v2/app/routes/app_pages.dart';
 
 class DownloadMediaController extends GetxController {
@@ -22,6 +24,11 @@ class DownloadMediaController extends GetxController {
   RxBool isTemplateFetched = false.obs;
   RxList<String> urls = <String>[].obs;
   List<MediaTempModel> tempList = [];
+  RxString backgroundImage = ''.obs;
+  var currentTemplateBackgroundColor = Rx<Color>(Colors.transparent);
+  RxList<TemplateSingleItemModel> singleItemList =
+      <TemplateSingleItemModel>[].obs;
+  RxBool? isUnLock = true.obs;
 
   Future<void> readFileFromPath(MediaTempModel mediaTempModel) async {
     try {
@@ -75,6 +82,11 @@ class DownloadMediaController extends GetxController {
   Future<void> getTemplates() async {
     try {
       for (var model in pairingResult!.value.uploadMedias!) {
+        // tempList.addAll(
+        //   tempList.where((p0) => p0.orientation == 'Landscape'),
+        // );
+        
+
         for (var temp in model.templateElements!) {
           if (temp.type == 'Image') {
             temp.comingFrom = Strings.editElementImage;
@@ -87,11 +99,18 @@ class DownloadMediaController extends GetxController {
               temp.comingFrom = Strings.editElementPrice;
             }
           }
+        //   backgroundImage.value = tempList[0].backgroundImage!;
+        // currentTemplateBackgroundColor.value =
+        //     Utils.fetchColorFromStringColor(tempList[0].backgroundColor) ?? "";
+
+        // singleItemList.value = tempList[0].templateElements!;
+
           temp.rect = Rect.fromLTWH(
-              temp.xaxis!.toDouble() * 3.6.w,
-              temp.yaxis!.toDouble() * 3.h,
-              temp.width! * 3.w,
-              temp.height! * 3.h);
+            temp.xaxis!.toDouble() * 3.6.w,
+            temp.yaxis!.toDouble() * 3.h,
+            temp.width! * 2.w,
+            temp.height! * 2.h,
+          );
           temp.width = temp.width! * 2.5.w;
           temp.height = temp.height! * 2.5.h;
           temp.isSelected = false;

@@ -67,15 +67,16 @@ class PreviewTemplateController extends GetxController
           model.result!.isNotEmpty) {
         //Portrait
         templateList.addAll(
-            model.result?.where((p) => p.orientation == "Landscape")
-                as Iterable<MediaTempModel>);
+          templateList.where((p0) => p0.orientation == 'Landscape'),
+        );
+
         templateList.refresh();
         backgroundImage.value = templateList[0].backgroundImage!;
         currentTemplateBackgroundColor.value =
             Utils.fetchColorFromStringColor(templateList[0].backgroundColor) ??
                 "";
 
-        // singleItemList.value = templateList[0].elements!;
+        singleItemList.value = templateList[0].templateElements!;
 
         for (var model in singleItemList) {
           if (model.type == 'Image') {
@@ -98,13 +99,6 @@ class PreviewTemplateController extends GetxController
           model.width = model.width! * 3.2.w;
           model.height = model.height! * 3.2.h;
 
-          // model.rect = Rect.fromLTWH(
-          //     model.xaxis!.toDouble() * 3.6.w,
-          //     model.yaxis!.toDouble() * 3.h,
-          //     model.width! * 3.w,
-          //     model.height! * 3.h);
-          // model.width = model.width! * 2.5.w;
-          // model.height = model.height! * 2.5.h;
           model.isSelected = false;
           model.fontSize = (model.fontSize == 0.0) ? 14 : model.fontSize;
           model.valueLocal =
