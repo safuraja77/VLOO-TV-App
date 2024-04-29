@@ -80,12 +80,20 @@ class DownloadMediaController extends GetxController {
   }
 
   Future<void> getTemplates() async {
+    String backgroundColor = '';
+    String backgroundImg = '';
+    List<TemplateSingleItemModel> temppItems = [];
+    for (var item in tempList) {
+      backgroundColor = item.backgroundColor!;
+      backgroundImg = item.backgroundImage!;
+      temppItems = item.templateElements!;
+    }
+
     try {
       for (var model in pairingResult!.value.uploadMedias!) {
         // tempList.addAll(
         //   tempList.where((p0) => p0.orientation == 'Landscape'),
         // );
-        
 
         for (var temp in model.templateElements!) {
           if (temp.type == 'Image') {
@@ -99,20 +107,20 @@ class DownloadMediaController extends GetxController {
               temp.comingFrom = Strings.editElementPrice;
             }
           }
-        //   backgroundImage.value = tempList[0].backgroundImage!;
-        // currentTemplateBackgroundColor.value =
-        //     Utils.fetchColorFromStringColor(tempList[0].backgroundColor) ?? "";
+          backgroundImage.value = backgroundImg;
+          currentTemplateBackgroundColor.value =
+              Utils.fetchColorFromStringColor(backgroundColor) ?? "";
 
-        // singleItemList.value = tempList[0].templateElements!;
+          singleItemList.value = temppItems;
 
           temp.rect = Rect.fromLTWH(
-            temp.xaxis!.toDouble() * 3.6.w,
-            temp.yaxis!.toDouble() * 3.h,
-            temp.width! * 2.w,
-            temp.height! * 2.h,
+            temp.xaxis!.toDouble() * 2.5.w ,
+            temp.yaxis!.toDouble() *2.5.h,
+            temp.width! * 3.w,
+            temp.height! * 3.h,
           );
-          temp.width = temp.width! * 2.5.w;
-          temp.height = temp.height! * 2.5.h;
+          temp.width = temp.width! * 2.w;
+          temp.height = temp.height! * 2.h;
           temp.isSelected = false;
           temp.fontSize = (temp.fontSize == 0.0) ? 14 : temp.fontSize;
           temp.valueLocal = (temp.value == null || temp.value?.isEmpty == true)

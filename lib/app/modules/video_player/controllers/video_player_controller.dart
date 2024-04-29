@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
@@ -14,102 +15,81 @@ class VideoPlayerControler extends GetxController {
   RxBool isTemp = false.obs;
   int currentTempIndex = 0;
   var currentTemplate = MediaTempModel();
+  final RxList<Offset> startDragOffset = <Offset>[].obs;
 
-  void initializeVideoController() {
-    if (videos.isNotEmpty) {
-      videoController = VideoPlayerController.networkUrl(
-        Uri.parse(
-          videos[currentVideoIndex],
-        ),
+  void mediaControllers() async {
+    if (videos.isNotEmpty && templates.isEmpty) {
+      videoController = VideoPlayerController.network(
+        videos[currentVideoIndex],
       );
+      await videoController!.initialize();
+      videoController!.play();
+      update();
 
-      videoController!.initialize().then(
-        (_) {
-          videoController!.play();
-        },
-      );
       videoController!.addListener(
         () {
           if (videoController!.value.isCompleted) {
-            onNext();
+            currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+            videoController!.dispose();
+            mediaControllers();
           }
         },
       );
-    } else {
-      onNext();
-    }
-  }
-
-  void onNext() async {
-    if (videos.isNotEmpty && !(currentVideoIndex == videos.length )) {
-      print(
-        'Video Index Value is $currentVideoIndex',
-      );
-
-      if (templates.isEmpty) {
-        currentVideoIndex = (currentVideoIndex + 1) % videos.length;
-      } else {
-        currentVideoIndex = currentVideoIndex + 1;
-      }
-      print(
-        'Video Index Value is $currentVideoIndex',
-      );
-      if (templates.isNotEmpty) {
-        currentTempIndex = 0;
-      }
-
-      videoController = VideoPlayerController.networkUrl(
-          Uri.parse(videos[currentVideoIndex]));
-      await videoController!.initialize(); // codec error
-      videoController!.play();
-      initializeVideoController();
-
-      update();
-    } else if (templates.isNotEmpty) {
-      videoController?.dispose();
+    } else if (videos.isEmpty && templates.isNotEmpty) {
       if (!(currentTempIndex == templates.length)) {
         isTemp.value = true;
-        print('Video Index Value is $currentTempIndex');
         currentTemplate = templates[currentTempIndex];
-        print('Video Index Value is $currentTempIndex');
         update();
-        templateController();
-      } else {                              /////// Maybe this thing is causing error
-        isTemp.value = false;
-        currentVideoIndex = (currentVideoIndex + 1) % videos.length;
 
-        videoController = VideoPlayerController.networkUrl(
-            Uri.parse(videos[currentVideoIndex]));
+        Timer(const Duration(seconds: 10), () {
+          currentTempIndex = (currentTempIndex + 1) % templates.length;
+          isTemp.value = false;
+          update();
+          mediaControllers();
+        });
+      } else {
+        currentTempIndex = 0;
+        mediaControllers();
+      }
+    } else if (videos.isNotEmpty && templates.isNotEmpty) {
+      if (!(currentVideoIndex == videos.length)) {
+        videoController = VideoPlayerController.network(
+          videos[currentVideoIndex],
+        );
         await videoController!.initialize();
         videoController!.play();
-        initializeVideoController();
         update();
+
+        videoController!.addListener(
+          () {
+            if (videoController!.value.isCompleted) {
+              currentVideoIndex = (currentVideoIndex + 1);
+              videoController!.dispose();
+              mediaControllers();
+            }
+          },
+        );
+      } else {
+        if (!(currentTempIndex == templates.length)) {
+          isTemp.value = true;
+          currentTemplate = templates[currentTempIndex];
+          update();
+
+          Timer(
+            const Duration(seconds: 10),
+            () {
+              currentTempIndex = (currentTempIndex + 1);
+              isTemp.value = false;
+              update();
+              mediaControllers();
+            },
+          );
+        } else {
+          currentVideoIndex = 0;
+          currentTempIndex = 0;
+          mediaControllers();
+        }
       }
-    }
-  }
-
-  void templateController() {
-    if (templates.isNotEmpty) {
-      print('Template Index Value is $currentTempIndex');
-
-      Timer(
-        const Duration(seconds: 5),
-        () {
-          if (videos.isEmpty) {
-            currentTempIndex = (currentTempIndex + 1) % templates.length;
-          } else {
-            currentTempIndex = currentTempIndex + 1;
-          }
-          print('Template Index Value is $currentTempIndex');
-
-          if (videos.isNotEmpty && currentTempIndex == templates.length) {
-            isTemp.value = false;
-            currentVideoIndex = -1;
-          }
-          onNext();
-          print('Template Index Value is $currentTempIndex');
-        },
-      );
     }
   }
 
@@ -127,7 +107,7 @@ class VideoPlayerControler extends GetxController {
 
       templates = Get.find<DownloadMediaController>().tempList;
 
-      initializeVideoController();
+      mediaControllers();
     }
     super.onInit();
   }

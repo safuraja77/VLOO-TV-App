@@ -1,6 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -50,61 +47,54 @@ class VideoPlayerView extends GetView<VideoPlayerControler> {
         }
       },
       child: Scaffold(
-        body: OrientationBuilder(
-          builder: (context, orientation) {
-            return Container(
-              width: Get.width,
-              height: Get.height,
-              color: Colors.black,
-              child: Obx(
-                () {
-                  return controller.isTemp.value
-                      ? GetBuilder<VideoPlayerControler>(
-                          builder: (controler) {
-                            return AspectRatio(
-                              aspectRatio: 16.w / 9.h,
-                              child: Container(
-                                color: Colors.white,
-                                child: DragAndResizeWidget(
-                                  singleItemList: controler
-                                      .currentTemplate.templateElements!,
-                                  // startDragOffset: controller.startDragOffset,
-                                  backgroundImage:
-                                      controler.currentTemplate.backgroundImage,
-                                  isBottomSheetLocked: false,
-                                  selectedTemplateBackGroundColor:
-                                      Utils.fetchColorFromStringColor(controler
-                                          .currentTemplate.backgroundColor),
-                                  orientation: Strings.landscape,
-                                  callBack: (list) {},
-                                ),
-                              ),
-                            );
-                          },
-                        )
-                      : GetBuilder<VideoPlayerControler>(
-                          builder: (controler) {
-                            if (controler.videos.isNotEmpty) {
-                              if (controler.videoController != null ||
-                                  controler
-                                      .videoController!.value.isInitialized) {
-                                return AspectRatio(
-                                  aspectRatio: controler
-                                      .videoController!.value.aspectRatio,
-                                  child:
-                                      VideoPlayer(controler.videoController!),
-                                );
-                              }
-                            }
-                            return Container(
-                              color: Colors.red,
-                            );
-                          },
+        body: Container(
+          width: Get.width,
+          height: Get.height,
+          color: Colors.black,
+          child: Obx(
+            () {
+              return controller.isTemp.value
+                  ? GetBuilder<VideoPlayerControler>(
+                      builder: (controler) {
+                        return Container(
+                          color: Colors.white,
+                          child: DragAndResizeWidget(
+                            singleItemList: controler
+                                .currentTemplate.templateElements!,
+                            startDragOffset: controller.startDragOffset,
+                            backgroundImage:
+                                controler.currentTemplate.backgroundImage,
+                            isBottomSheetLocked: false,
+                            selectedTemplateBackGroundColor:
+                                Utils.fetchColorFromStringColor(controler
+                                    .currentTemplate.backgroundColor),
+                            orientation: Strings.landscape,
+                            callBack: (list) {},
+                          ),
                         );
-                },
-              ),
-            );
-          },
+                      },
+                    )
+                  : GetBuilder<VideoPlayerControler>(
+                      builder: (controler) {
+                        if (controler.videos.isNotEmpty) {
+                          if (controler.videoController != null ||
+                              controler
+                                  .videoController!.value.isInitialized) {
+                            return AspectRatio(
+                              aspectRatio: controler
+                                  .videoController!.value.aspectRatio,
+                              child:
+                                  VideoPlayer(controler.videoController!),
+                            );
+                          }
+                        }
+                        return Container(
+                          color: Colors.red,
+                        );
+                      },
+                    );
+            },
+          ),
         ),
       ),
     );

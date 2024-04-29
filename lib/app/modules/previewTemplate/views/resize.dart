@@ -55,34 +55,34 @@ class DragAndResizeWidget extends StatefulWidget {
 }
 
 class _DragAndResizeWidgetState extends State<DragAndResizeWidget> {
-  void setSingleItemList() async {
-    await Future.delayed(Duration.zero);
-    if (MediaQuery.of(context).size.width.isLowerThan(428)) {
-      for (var item in widget.singleItemList) {
-        item.rect = Rect.fromLTWH(item.rect!.left * 1.2.w, item.rect!.top * 1.h,
-            item.width! * 0.7.w, item.height! * 0.7.w);
-        item.width = item.width! * 0.7.w;
-        item.height = item.height! * 0.7.w;
-      }
-      setState(() {});
-    } else if (MediaQuery.of(context).size.width.isLowerThan(390)) {
-      for (var item in widget.singleItemList) {
-        item.rect = Rect.fromLTWH(item.rect!.left * 1.3.w,
-            item.rect!.top * 1.1.h, item.width! * 0.8.w, item.height! * 0.8.w);
-        item.width = item.width! * 1.w;
-        item.height = item.height! * 1.h;
-      }
-      setState(() {});
-    } else if (MediaQuery.of(context).size.width.isGreaterThan(900)) {
-      for (var item in widget.singleItemList) {
-        item.rect = Rect.fromLTWH(item.rect!.left * 10.w, item.rect!.top * 7.h,
-            item.width! * 1.w, item.height! * 1.w);
-        item.width = item.width! * 1.w;
-        item.height = item.height! * 1.h;
-      }
-      setState(() {});
-    }
-  }
+  // void setSingleItemList() async {
+  //   await Future.delayed(Duration.zero);
+  //   if (MediaQuery.of(context).size.width.isLowerThan(428)) {
+  //     for (var item in widget.singleItemList) {
+  //       item.rect = Rect.fromLTWH(item.rect!.left * 1.2.w, item.rect!.top * 1.h,
+  //           item.width! * 0.7.w, item.height! * 0.7.w);
+  //       item.width = item.width! * 0.7.w;
+  //       item.height = item.height! * 0.7.w;
+  //     }
+  //     setState(() {});
+  //   } else if (MediaQuery.of(context).size.width.isLowerThan(390)) {
+  //     for (var item in widget.singleItemList) {
+  //       item.rect = Rect.fromLTWH(item.rect!.left * 1.3.w,
+  //           item.rect!.top * 1.1.h, item.width! * 0.8.w, item.height! * 0.8.w);
+  //       item.width = item.width! * 1.w;
+  //       item.height = item.height! * 1.h;
+  //     }
+  //     setState(() {});
+  //   } else if (MediaQuery.of(context).size.width.isGreaterThan(900)) {
+  //     for (var item in widget.singleItemList) {
+  //       item.rect = Rect.fromLTWH(item.rect!.left * 10.w, item.rect!.top * 7.h,
+  //           item.width! * 1.w, item.height! * 1.w);
+  //       item.width = item.width! * 1.w;
+  //       item.height = item.height! * 1.h;
+  //     }
+  //     setState(() {});
+  //   }
+  // }
 
   @override
   void initState() {
